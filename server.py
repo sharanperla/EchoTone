@@ -24,10 +24,17 @@ app.add_middleware(
 
 # Extract Features
 def extract_mfcc(audio_bytes):
-    y, sr = librosa.load(BytesIO(audio_bytes), sr=22050)
-    mfcc = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=40)
-    mfcc_scaled = np.mean(mfcc.T, axis=0)
-    return np.expand_dims(mfcc_scaled, axis=0)  # Reshape for model input
+    try:
+        print(f"First 10 bytes: {audio_bytes[:10]}")  # Log first few bytes to inspect the file format
+        y, sr = librosa.load(BytesIO(audio_bytes), sr=22050)
+        mfcc = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=40)
+        mfcc_scaled = np.mean(mfcc.T, axis=0)
+        return np.expand_dims(mfcc_scaled, axis=0)  # Reshape for model input
+    except Exception as e:
+        print(f"Error during feature extraction: {e}")
+        raise e
+
+
 
 @app.post("/predict/")
 async def predict_emotion(file: UploadFile = File(...)):

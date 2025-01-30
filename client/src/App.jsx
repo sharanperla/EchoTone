@@ -1,8 +1,9 @@
 import AudioUploader from "./AudioUploader";
 
+
 function App() {
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="w-full h-screen">
       <AudioUploader />
     </div>
   );

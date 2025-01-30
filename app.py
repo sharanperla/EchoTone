@@ -1,5 +1,4 @@
 # Import necessary libraries 
-
 import os 
 import librosa
 import numpy as np
@@ -129,5 +128,3 @@ if __name__ == "__main__":
 
     # Train and evaluate the model
     train_and_evaluate(X_train, X_test, y_train, y_test)
-
-
